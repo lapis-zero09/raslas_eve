@@ -1,5 +1,4 @@
 # coding:utf-8
-
 require 'yaml'
 require 'twitter'
 require 'tweetstream'
@@ -35,7 +34,8 @@ class Eve
     @client.update(words,:in_reply_to_status_id => id)
   end
 
-  def alert(words)
-    @client.update(words)
+  def iyashi(words, imgloc, id)
+    img=open(imgloc)
+    @client.update_with_media(words,img,:in_reply_to_status_id => id)
   end
 end

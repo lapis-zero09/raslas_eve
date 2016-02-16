@@ -5,7 +5,7 @@ eve=Eve.new
 
 
 reply=YAML.load_file('./reply.yml')
-called_name=['なに?', '呼んだ?','どうしたの?']
+imgloc=YAML.load_file('./imgloc.yml')
 
 # timelineの監視
 begin
@@ -17,22 +17,34 @@ begin
     id='@' + id + ' '
 
     if(contents=~/@lapis_ko/)
-      word = reply.sample
-      eve.say(id + word, status.id)
+      if(contents=~/癒して|癒し|疲れた/)
+        rep_iyashi=['癒えて', '癒えろ']
+        eve.iyashi(id+rep_iyashi.sample, imgloc.sample, status.id)
+      else
+        word = reply.sample
+        eve.say(id + word, status.id)
+      end
       next
     end
 
     # メンション以外の名前に反応
     if(contents=~/eve|Eve|イヴ|いぶ/)&&(status.user.screen_name!='_eve')
-      word=called_name.sample
-      eve.say(id+word, status.id)
+      called_name=['なに?', '呼んだ?','どうしたの?']
+      eve.say(id+called_name.sample, status.id)
       next
     end
 
-    # shandyがつぶやいたらリプライ
+    #癒し
+    if(contents=~/癒して|癒し|疲れた/)&&(status.user.screen_name!='_eve')
+      rep_iyashi=['癒えて', '癒えろ']
+      eve.iyashi(id+rep_iyashi.sample, imgloc.sample, status.id)
+      next
+    end
+
+    #zero09がつぶやいたらリプライ
     if(status.user.screen_name=='lapis_zero09')
-      replap=["勉強しんさい","Twitterやめんさい"]
-      eve.say(id + replap.sample, status.id)
+      rep_lap=["勉強しんさい","Twitterやめんさい"]
+      eve.say(id + rep_lap.sample, status.id)
       next
     end
   }
