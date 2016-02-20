@@ -2,6 +2,7 @@
 require 'yaml'
 require 'twitter'
 require 'tweetstream'
+require 'docomoru'
 
 class Eve
   # 外部から参照できるメンバ変数
@@ -27,11 +28,19 @@ class Eve
       config.auth_method=:oauth
     }
     @timeline=TweetStream::Client.new
+
+    #docmoAPI初期化
+    @docomoru=Docomoru::Client.new(api_key: keys["docomo_api_key"])
   end
 
   # 引数を投稿するメソッド
   def say(words, id)
     @client.update(words,:in_reply_to_status_id => id)
+  end
+
+  def docomoru_create_dialogue(str)
+    response=@docomoru.create_dialogue(str)
+    return response.body["utt"]
   end
 
   def iyashi(words, imgloc, id)
