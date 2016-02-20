@@ -18,7 +18,7 @@
     - 食べたい物に指定できるカテゴリは[こちら](http://recipe.rakuten.co.jp/category/)
 
 # Version
-* ver.1 名前に反応．簡単なreply.
-* ver.2 iyashi機能追加．lapis_zero09がつぶやいたら叱る機能．
-* ver.3 iyashiの拡張．docomoAPIで会話機能.
-* ver.3.1 ご飯推薦機能追加
+* Ver1 名前に反応．簡単なreply.
+* Ver2 iyashi機能追加．lapis_zero09がつぶやいたら叱る機能．
+* Ver3 iyashiの拡張．docomoAPIで会話機能.
+* Ver3.1 ご飯推薦機能追加
