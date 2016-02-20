@@ -1,5 +1,6 @@
 # coding: utf-8
 require './twcon.rb'
+require './r-recipe.rb'
 # eveの初期化
 eve=Eve.new
 
@@ -14,14 +15,28 @@ begin
     id=status.user.screen_name
     id='@' + id + ' '
 
-    if(contents=~/@lapis_ko/)
+    # reply_answer
+    if(contents=~/@lapis_ko/)&&(status.user.screen_name!='lapis_ko')
       postmatch=$'
+
+      # 癒し
       if(contents=~/癒して|癒し|疲れた/)
         rep_iyashi=['癒えて', '癒えろ']
         eve.iyashi(id+rep_iyashi.sample, imgloc.sample, status.id)
+
+      # 料理推薦
+      elsif(contents=~/飯/)
+        food=RecommendRecipe.new
+        if(contents=~/:|：/)
+          eve.say(id+food.call("#{$'}"), status.id)
+        else
+          eve.say(id+"ご飯にする？\n"+food.call("なんでもいい")+"食べたいものがあれば「ご飯:食べたいもの」で指定してね！", status.id)
+        end
+
+      # 会話
       else
         postmatch.gsub!(/\s|[　]/, "")
-        eve.say(id + eve.docomoru_create_dialogue(postmatch), status.id)
+        eve.say(id+eve.docomoru_create_dialogue(postmatch), status.id)
       end
       next
     end
@@ -37,6 +52,13 @@ begin
     if(contents=~/癒して|癒し|疲れた/)&&(status.user.screen_name!='lapis_ko')
       rep_iyashi=['癒えて', '癒えろ']
       eve.iyashi(id+rep_iyashi.sample, imgloc.sample, status.id)
+      next
+    end
+
+    # 料理推薦
+    if(contents=~/飯|お腹すいた/)&&(status.user.screen_name!='lapis_ko')
+      food=RecommendRecipe.new
+      eve.say(id+"ご飯にする？\n"+food.call("なんでもいい")+"食べたいものがあれば「ご飯:食べたいもの」で指定してね！", status.id)
       next
     end
 

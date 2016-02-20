@@ -29,7 +29,7 @@ class Eve
     }
     @timeline=TweetStream::Client.new
 
-    #docmoAPI初期化
+    # docmoAPI初期化
     @docomoru=Docomoru::Client.new(api_key: keys["docomo_api_key"])
   end
 
@@ -38,11 +38,13 @@ class Eve
     @client.update(words,:in_reply_to_status_id => id)
   end
 
+  # 会話を生成する
   def docomoru_create_dialogue(str)
     response=@docomoru.create_dialogue(str)
     return response.body["utt"]
   end
 
+  # 画像をランダムで投稿するメソッド
   def iyashi(words, imgloc, id)
     img=open(imgloc)
     @client.update_with_media(words,img,:in_reply_to_status_id => id)
