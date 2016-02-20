@@ -3,6 +3,7 @@
 ## Description
 - Twitter上の[Bot](https://twitter.com/lapis_ko)です
 - "iyashi"を与えます
+- 参考:[nzwさん](https://twitter.com/nozawa0301)の[michilちゃん](https://github.com/nzw0301/michil)(https://github.com/nzw0301/michil)
 
 ## Usage
 1. 名前を呼ぶ
