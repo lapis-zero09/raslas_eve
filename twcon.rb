@@ -35,7 +35,7 @@ class Eve
 
   # 引数を投稿するメソッド
   def say(words, id)
-    @client.update(words,:in_reply_to_status_id => id)
+    @client.update(words, :in_reply_to_status_id => id)
   end
 
   # 会話を生成する
@@ -44,9 +44,23 @@ class Eve
     return response.body["utt"]
   end
 
+  # QandA
+  def docomoru_create_knowledge(str)
+    response=@docomoru.create_knowledge(str)
+    if(response.body["code"]=="E020010")
+      return response.body["message"]["textForDisplay"]
+    else
+      if(response.body["answers"][0]["linkUrl"]==nil)
+        return response.body["message"]["textForDisplay"]
+      else
+        return response.body["message"]["textForDisplay"]+"<"+response.body["answers"][0]["linkUrl"]+">"
+      end
+    end
+  end
+
   # 画像をランダムで投稿するメソッド
   def iyashi(words, imgloc, id)
     img=open(imgloc)
-    @client.update_with_media(words,img,:in_reply_to_status_id => id)
+    @client.update_with_media(words,img, :in_reply_to_status_id => id)
   end
 end

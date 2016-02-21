@@ -19,8 +19,13 @@ begin
     if(contents=~/@lapis_ko/)&&(status.user.screen_name!='lapis_ko')
       postmatch=$'
 
+      #eve_help
+      if(contents=~/help|ヘルプ|へるぷ|Help|HELP|man|-h|-help|manual/)
+        help=id+"\n・5W1Hに対して質問に答えるよ!\n・癒し|疲れた に対して\"Iyashi\"を提供するよ!\n・飯|お腹すいた に対して料理のレシピを提供するよ!\n詳しくはここ(https://github.com/Shandy-ko/raslas_eve)"
+        eve.say(help, status.id)
+
       # 癒し
-      if(contents=~/癒して|癒し|疲れた/)
+      elsif(contents=~/癒し|疲れた/)
         rep_iyashi=['癒えて', '癒えろ']
         eve.iyashi(id+rep_iyashi.sample, imgloc.sample, status.id)
 
@@ -35,9 +40,17 @@ begin
 
       # 会話
       else
-        postmatch.gsub!(/\s|[　]/, "")
-        eve.say(id+eve.docomoru_create_dialogue(postmatch), status.id)
+        postmatch.gsub!(/\s|[　]|\?|\？/, "")
+        # QandA
+        if(postmatch=~/誰|何処|だれ|どこ|何時|いつ|どうやって|どうして|何故|なぜ|どの|何|なに|どれ|は$/)
+          eve.say(id+eve.docomoru_create_knowledge(postmatch), status.id)
+        # 会話
+        else
+          eve.say(id+eve.docomoru_create_dialogue(postmatch), status.id)
+        end
+
       end
+
       next
     end
 
