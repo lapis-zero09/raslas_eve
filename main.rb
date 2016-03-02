@@ -77,10 +77,8 @@ begin
 
     #zero09がつぶやいたらリプライ
     if(status.user.screen_name=='lapis_zero09')
-      if(contents!~/@/)
-        rep_lap=["勉強しんさい","Twitterやめんさい"]
-        eve.say(id + rep_lap.sample, status.id)
-      end
+      rep_lap=["勉強しんさい","Twitterやめんさい"]
+      eve.say(id + rep_lap.sample, status.id)
       next
     end
   }

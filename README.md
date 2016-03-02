@@ -21,9 +21,10 @@
     - 食べたい物に指定できるカテゴリは[こちら](http://recipe.rakuten.co.jp/category/)
   - help|ヘルプ|へるぷ|Help|HELP|man|-h|-help|manual に反応してマニュアルを表示します．
 
-# Version
+## Version
 * Ver1 名前を呼ばれると反応．簡単なreply機能追加．
 * Ver2 iyashi機能追加(13パターン)．lapis_zero09がつぶやいたら叱る機能追加．
 * Ver3 iyashiの拡張(19パターン)．docomoAPIで会話機能追加．
 * Ver3.1 ご飯推薦機能追加．
 * Ver3.14 会話機能(Q&A)機能追加．Help機能追加．iyashiの拡張(29パターン)．
+* Ver3.141 iyashiの拡張(44パターン)．RaspberryPiからさくらVPSへ移行．

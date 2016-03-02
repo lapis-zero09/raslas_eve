@@ -2,8 +2,8 @@
 require 'open-uri'
 require 'json'
 require 'yaml'
-#require 'natto'
-require 'MeCab'
+require 'natto'
+# require 'MeCab'
 
 class RecommendRecipe
     keys=YAML.load_file('./config.yml')
@@ -28,28 +28,28 @@ class RecommendRecipe
 
         words=[]
         #require 'MeCab'の場合
-        mc=MeCab::Tagger.new()
-        n=mc.parseToNode(food)
-        while(n)
-          if(n.feature.split(',')[0]=="名詞")
-            words.push(n.surface)
-          elsif(words.size>0)
-            food=words.join("")
-            break
-          end
-          n=n.next
-        end
-
-        #require 'natto'の場合
-        # nt=Natto::MeCab.new
-        # nt.parse(food){|n|
+        # mc=MeCab::Tagger.new()
+        # n=mc.parseToNode(food)
+        # while(n)
         #   if(n.feature.split(',')[0]=="名詞")
         #     words.push(n.surface)
         #   elsif(words.size>0)
         #     food=words.join("")
         #     break
         #   end
-        # }
+        #   n=n.next
+        # end
+
+        #require 'natto'の場合
+        nt=Natto::MeCab.new
+        nt.parse(food){|n|
+          if(n.feature.split(',')[0]=="名詞")
+            words.push(n.surface)
+          elsif(words.size>0)
+            food=words.join("")
+            break
+          end
+        }
         recipe_category_id = results.fetch(food, nil)
         if(recipe_category_id.nil?)
           return "#{food}だとわからないからもうちょっと詳しく教えて(漢字⇆ひらがなにするといいかも)"
